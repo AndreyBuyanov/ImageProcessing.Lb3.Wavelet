@@ -3,4 +3,8 @@ from .HaarWaveletInverseTransform import HaarWaveletInverseTransform
 from .DaubechiesWaveletTransform import DaubechiesWaveletTransform
 from .DaubechiesWaveletInverseTransform import DaubechiesWaveletInverseTransform
 
-from .ImageHelper import normalize_image
+from .Helper import (
+    normalize_image,
+    convert_to_gray,
+    calculate_psnr
+)

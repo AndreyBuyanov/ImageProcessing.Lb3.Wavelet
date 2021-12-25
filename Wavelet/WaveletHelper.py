@@ -113,57 +113,23 @@ def inverse_v_transform(
     return result
 
 
-def haar_h_transform(
-        input_image: np.array) -> np.array:
-    _, width = input_image.shape
-    transform_matrix: np.array = build_haar_matrix(size=width)
-    return h_transform(input_image=input_image, transform_matrix=transform_matrix)
+def transform(
+        input_image: np.array,
+        transform_h_matrix: np.array,
+        transform_v_matrix: np.array) -> np.array:
+    return v_transform(
+        input_image=h_transform(
+            input_image=input_image,
+            transform_matrix=transform_h_matrix),
+        transform_matrix=transform_v_matrix)
 
 
-def haar_v_transform(
-        input_image: np.array) -> np.array:
-    height, _ = input_image.shape
-    transform_matrix: np.array = build_haar_matrix(size=height)
-    return v_transform(input_image=input_image, transform_matrix=transform_matrix)
-
-
-def haar_inverse_h_transform(
-        input_image: np.array) -> np.array:
-    _, width = input_image.shape
-    transform_matrix: np.array = build_inverse_haar_matrix(size=width)
-    return inverse_h_transform(input_image=input_image, transform_matrix=transform_matrix)
-
-
-def haar_inverse_v_transform(
-        input_image: np.array) -> np.array:
-    height, _ = input_image.shape
-    transform_matrix: np.array = build_inverse_haar_matrix(size=height)
-    return inverse_v_transform(input_image=input_image, transform_matrix=transform_matrix)
-
-
-def daubechies_h_transform(
-        input_image: np.array) -> np.array:
-    _, width = input_image.shape
-    transform_matrix: np.array = build_daubechies_matrix(size=width)
-    return h_transform(input_image=input_image, transform_matrix=transform_matrix)
-
-
-def daubechies_v_transform(
-        input_image: np.array) -> np.array:
-    height, _ = input_image.shape
-    transform_matrix: np.array = build_daubechies_matrix(size=height)
-    return v_transform(input_image=input_image, transform_matrix=transform_matrix)
-
-
-def daubechies_inverse_h_transform(
-        input_image: np.array) -> np.array:
-    _, width = input_image.shape
-    transform_matrix: np.array = build_inverse_daubechies_matrix(size=width)
-    return inverse_h_transform(input_image=input_image, transform_matrix=transform_matrix)
-
-
-def daubechies_inverse_v_transform(
-        input_image: np.array) -> np.array:
-    height, _ = input_image.shape
-    transform_matrix: np.array = build_inverse_daubechies_matrix(size=height)
-    return inverse_v_transform(input_image=input_image, transform_matrix=transform_matrix)
+def inverse_transform(
+        input_image: np.array,
+        transform_h_matrix: np.array,
+        transform_v_matrix: np.array) -> np.array:
+    return inverse_v_transform(
+        input_image=inverse_h_transform(
+            input_image=input_image,
+            transform_matrix=transform_h_matrix),
+        transform_matrix=transform_v_matrix)

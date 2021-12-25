@@ -1,31 +1,16 @@
 import numpy as np
 from .AbstractWaveletTransform import AbstractWaveletTransform
-from .Wavelet import Wavelet
-from .WaveletHelper import (
-    daubechies_h_transform,
-    daubechies_v_transform
-)
+from .WaveletHelper import build_daubechies_matrix
 
 
 class DaubechiesWaveletTransform(AbstractWaveletTransform):
     def __init__(self,
                  input_image: np.array):
-        super().__init__(input_image=input_image)
+        super().__init__(
+            input_image=input_image)
 
     def __call__(self,
                  levels: int):
-        self.wavelets = []
-        work_image: np.array = np.copy(self.input_image)
-        for level in range(levels):
-            height, width = work_image.shape
-            if width <= 4 or height <= 4:
-                self.wavelets.append(Wavelet(work_image))
-                break
-            if width % 2 == 1:
-                work_image = np.delete(work_image, width, 1)
-            if height % 2 == 1:
-                work_image = np.delete(work_image, height, 0)
-            result_image: np.array = daubechies_v_transform(
-                daubechies_h_transform(input_image=work_image))
-            self.wavelets.append(Wavelet(result_image))
-            work_image = result_image[0: height // 2, 0: width // 2]
+        self.transform(
+            levels=levels,
+            build_matrix=build_daubechies_matrix)

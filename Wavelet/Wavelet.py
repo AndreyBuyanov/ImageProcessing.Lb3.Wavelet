@@ -1,5 +1,5 @@
 import numpy as np
-from .ImageHelper import normalize_image
+from .Helper import normalize_image
 
 
 class Wavelet(object):

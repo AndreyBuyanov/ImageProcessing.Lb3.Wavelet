@@ -27,3 +27,13 @@ def convert_to_gray(
                 + input_image[y][x][1] * 0.587 \
                 + input_image[y][x][2] * 0.114
     return result_image
+
+
+def calculate_psnr(
+        img1: np.array,
+        img2: np.array,
+        max_value=255):
+    mse = np.mean((np.array(img1, dtype=np.float32) - np.array(img2, dtype=np.float32)) ** 2)
+    if mse == 0:
+        return 100
+    return 20 * np.log10(max_value / (np.sqrt(mse)))

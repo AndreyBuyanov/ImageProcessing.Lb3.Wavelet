@@ -1,17 +1,15 @@
 import numpy as np
 from .AbstractWaveletInverseTransform import AbstractWaveletInverseTransform
 from .Wavelet import Wavelet
-from .WaveletHelper import (
-    haar_inverse_h_transform,
-    haar_inverse_v_transform
-)
+from .WaveletHelper import build_inverse_haar_matrix
 
 
 class HaarWaveletInverseTransform(AbstractWaveletInverseTransform):
     def __init__(self,
                  wavelet: Wavelet):
-        super().__init__(wavelet=wavelet)
+        super().__init__(
+            wavelet=wavelet)
 
     def __call__(self) -> np.array:
-        return haar_inverse_h_transform(
-            haar_inverse_v_transform(self.wavelet.get()))
+        return self.transform(
+            build_matrix=build_inverse_haar_matrix)
